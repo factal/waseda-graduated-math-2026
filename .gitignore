@@ -1,0 +1,26 @@
+# Generated document outputs
+*.pdf
+
+# Typst local cache
+.typst-cache/
+
+# Locally downloaded fonts for CI-compatible builds
+.fonts/
+
+# LaTeX-style build intermediates
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+.vscode/

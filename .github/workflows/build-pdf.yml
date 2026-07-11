@@ -1,0 +1,79 @@
+name: Build PDF
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: typst-community/setup-typst@v5
+        with:
+          typst-version: ^0.14
+
+      - name: Cache Source Han fonts
+        uses: actions/cache@v4
+        with:
+          path: .fonts/source-han
+          key: source-han-j-sans-2.005R-serif-2.003R
+
+      - name: Install Source Han fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          font_dir=".fonts/source-han"
+          mkdir -p "$font_dir"
+
+          download_fonts() {
+            curl --fail --location --retry 3 \
+              --output /tmp/source-han-sans.zip \
+              https://github.com/adobe-fonts/source-han-sans/releases/download/2.005R/07_SourceHanSansJ.zip
+            curl --fail --location --retry 3 \
+              --output /tmp/source-han-serif.zip \
+              https://github.com/adobe-fonts/source-han-serif/releases/download/2.003R/07_SourceHanSerifJ.zip
+
+            unzip -qo /tmp/source-han-sans.zip -d "$font_dir"
+            unzip -qo /tmp/source-han-serif.zip -d "$font_dir"
+          }
+
+          if [ -n "$(find "$font_dir" -type f \( -name '*.otf' -o -name '*.ttf' \) -print -quit)" ]; then
+            typst fonts --ignore-system-fonts --font-path "$font_dir" > /tmp/typst-fonts.txt
+          fi
+
+          if ! grep -Fxq "Source Han Sans" /tmp/typst-fonts.txt 2>/dev/null ||
+             ! grep -Fxq "Source Han Serif" /tmp/typst-fonts.txt 2>/dev/null; then
+            rm -rf "$font_dir"
+            mkdir -p "$font_dir"
+            download_fonts
+          fi
+
+          typst fonts --ignore-system-fonts --font-path "$font_dir" > /tmp/typst-fonts.txt
+          grep -Fx "Source Han Sans" /tmp/typst-fonts.txt
+          grep -Fx "Source Han Serif" /tmp/typst-fonts.txt
+
+      - name: Compile Typst
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p dist
+
+          find . -mindepth 2 -type f -name main.typ -print0 | while IFS= read -r -d '' file; do
+            dir="${file%/main.typ}"
+            dir="${dir#./}"
+            output="dist/${dir//\//-}.pdf"
+
+            typst compile --ignore-system-fonts --font-path .fonts/source-han "$file" "$output"
+          done
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v7
+        with:
+          path: dist/*.pdf
+          archive: true
