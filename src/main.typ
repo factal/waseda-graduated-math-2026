@@ -26,8 +26,7 @@
 
 #show: jarticle.with(
   fontsize: 11pt,
-  title: [早稲田 数学科 2026],
-  date: datetime.today().display(年月日),
+  title: [早稲田院 数学科 2026]
 )
 
 #problem("1")[
@@ -188,17 +187,17 @@
 ]
 
 #problem("3B")[
-  空でない集合 $Lambda$ で添え字づけられた $RR$ の閉集合の族 ${C_lambda}_(lambda in Lambda)$ に対し、次の条件 (F1)、(F2)、(F3) を考える。ただし、$Lambda'$が空集合のときは $inter_(lambda in Lambda') C_lambda = RR$ とする。
+  空でない集合 $Lambda$ で添え字づけられた $RR$ の閉集合の族 ${C_lambda}_(lambda in Lambda)$ に対し、次の条件 (F1)、(F2)、(F3) を考える。ただし、$Lambda'$が空集合のときは $inter.big_(lambda in Lambda') C_lambda = RR$ とする。
 
-  (F1) $Lambda$ の任意の有限部分集合 $Lambda' subset Lambda$ に対して $inter_(lambda in Lambda') C_lambda eq.not emptyset$ が成立する。
+  (F1) $Lambda$ の任意の有限部分集合 $Lambda' subset Lambda$ に対して $inter.big_(lambda in Lambda') C_lambda eq.not emptyset$ が成立する。
 
-  (F2) $Lambda$ の任意の高々加算な部分集合 $Lambda' subset Lambda$ に対して $inter_(lambda in Lambda') C_lambda eq.not emptyset$ が成立する。
+  (F2) $Lambda$ の任意の高々加算な部分集合 $Lambda' subset Lambda$ に対して $inter.big_(lambda in Lambda') C_lambda eq.not emptyset$ が成立する。
 
   (F3) $RR$ の任意の閉集合 $C$ に対し、$C = C_lambda$ か $C inter C_lambda = emptyset$ となる $lambda in Lambda$ が存在する。
 
   次の問に答えよ。
 
-  (1) (F1) を満たすが $inter_(lambda in Lambda) C_lambda eq emptyset$ となる集合 $Lambda$ と閉集合の族 ${C_lambda}_(lambda in Lambda)$ の例を挙げよ。
+  (1) (F1) を満たすが $inter.big_(lambda in Lambda) C_lambda eq emptyset$ となる集合 $Lambda$ と閉集合の族 ${C_lambda}_(lambda in Lambda)$ の例を挙げよ。
 
   (2) $r_0 in RR$ を固定する。$r_0$ を満たす閉集合 $C$ 全体のなす族は (F2) と (F3) を満たすことを示せ。
 
@@ -217,13 +216,13 @@
   とおく。各 $C_n$ は閉集合である。空でない有限集合
   $Lambda' subset Lambda$ に対して $N=max Lambda'$ とおけば
   $
-    inter_(n in Lambda') C_n=[N,infinity) eq.not emptyset
+    inter.big_(n in Lambda') C_n=[N,infinity) eq.not emptyset
   $
   $Lambda'=emptyset$ の場合の共通部分は定義により $RR$ であるから、
   この族は (F1) を満たす。一方、任意の $x in RR$ に対して $n>x$ となる
   $n in Lambda$ が存在し、そのとき $x in.not C_n$ である。したがって
   $
-    inter_(n in Lambda) C_n=emptyset
+    inter.big_(n in Lambda) C_n=emptyset
   $
 
   (2) $r_0 in C$ を満たす閉集合 $C$ 全体の族を
@@ -282,7 +281,7 @@
 
   (4)
   $
-    K = inter_(lambda in Lambda) C_lambda
+    K = inter.big_(lambda in Lambda) C_lambda
   $
   とおく。
   $K = emptyset$ を仮定すると、De Morgan の法則により
@@ -295,7 +294,7 @@
   $
   となるものが存在する。再び De Morgan の法則を用いると
   $
-    inter_(lambda in Lambda') C_lambda=emptyset
+    inter.big_(lambda in Lambda') C_lambda=emptyset
   $
   となるが、これは (F2) に反する。よって $K eq.not emptyset$ である。
 
@@ -322,7 +321,7 @@
   $
 ]
 
-#problem("4")[
+#problem("7")[
   $n$ を $1$ 以上の整数とする。位相空間 $X$ と $RR^(n+1)$ を中心とする $n$ 次元球面 $S^n$ について、以下の問に答えよ。
 
   (1) $X$ から $S^n$ への連続写像 $f, g$ が、すべての $x in X$ に対して $f(x) eq.not g(x)$ を満たすとき、 $f$ と $-g$ はホモトピックであることを示せ。
